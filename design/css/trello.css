@@ -1,0 +1,111 @@
+.drop-area .zone .card, .textarea-card {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+  padding: 1rem;
+  border-radius: 2px;
+}
+
+html {
+  background-color: #42a5f5;
+}
+
+.container {
+  max-width: 1280px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.drop-area {
+  position: relative;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: #1976d2;
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.drop-area .zone {
+  position: relative;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  height: auto;
+  width: 50%;
+  padding: 0.5rem;
+}
+
+.drop-area .zone:first-child {
+  margin-right: 0.5rem;
+}
+
+.drop-area .zone .card {
+  cursor: pointer;
+}
+
+.drop-area .zone .card:not(:last-child) {
+  margin-bottom: 0.4rem;
+}
+
+.drop-area .zone .card:hover {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-enter-active {
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+}
+
+.card-enter,
+.card-leave-to {
+  opacity: 0;
+}
+
+.card-enter-to,
+.card-leave {
+  opacity: 1;
+}
+
+.card-move {
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.zone-enter-active {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.zone-enter {
+  opacity: 0;
+}
+
+.zone-enter-to {
+  opacity: 1;
+}
+
+.drop-area-enter-active {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.textarea-card {
+  overflow: hidden;
+  overflow-wrap: break-word;
+  resize: none;
+  height: 54px;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+/*# sourceMappingURL=trello.css.map */

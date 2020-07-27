@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Trello Application</title>
+
+        <!-- Google stylesheets -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="./css/trello.css">
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div id="trello"></div>
+            </div>
+        </main>
+
+        <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <!-- Minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+        <!-- Materialize scripts -->
+
+        <script>
+            $(document).ready(function(){
+                // Sidenav
+                $('.sidenav').sidenav();
+                // Scrollspy
+                $('.scrollspy').scrollSpy();
+                // Select
+                $('select').formSelect();
+                // Modals
+                $('.modal').modal();
+            });
+        </script>
+
+        <!-- LODASH -->
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+
+        <!-- VUEJS -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script>
+            Vue.component("zone-component", {
+                props: ["items", "listId", "showInputText"],
+                name: "DropZone",
+                template: `
+                <transition name="zone">
+                    <div @drop="onDrop($event, listId)" @dragover.prevent @dragenter.prevent class="zone">
+                        <slot></slot>
+
+                        <div class="footer">
+                            <div v-if="showInputText" class="card" style="margin-top: .5rem;">
+                                <input type="text" @keyup.enter="addtolist(listId)" v-model="newitemtext" style="width: 100%;" />
+                            </div>
+
+                            <button @click="createNewCard" class="btn">
+                                Add new card
+                            </button>
+                        </div>
+                    </div>
+                </transition>
+                `,
+                data() {
+                    return {
+                        newitemtext: ""
+                    }
+                },
+                methods: {
+                    onDrop(e, listId) {
+                        const itemID = e.dataTransfer.getData("itemID")
+                        const item = this.$props.items.find((item) => item.id == itemID)
+                        item.list = listId
+                    },
+                    addtolist: function (listId) {
+                        var lastitem = this.$props.items[this.$props.items.length - 1];
+                        this.$emit("addtolist", {
+                            id: lastitem.id + 1,
+                            title: this.$data.newitemtext,
+                            list: listId
+                        })
+                    },
+                    createNewCard() {
+                        this.$emit("createNewCard")
+                    }
+                }
+            })
+
+
+            Vue.component("card-component", {
+                props: ["items"],
+                name: "Cards",
+                template: `
+                <transition-group name="card" tag="div">
+                    <div v-for="item in items" :key="item.id" @dragstart="startDrag($event, item)" class="card" draggable>
+                        {{ item.title }}
+                    </div>
+                </transition-group>
+                `,
+                methods: {
+                    startDrag: (e, item) => {
+                        e.dataTransfer.dropEffect = "move";
+                        e.dataTransfer.effectAllowed = "move";
+                        e.dataTransfer.setData("itemID", item.id);
+                    }
+                }
+            })
+
+            var app = new Vue({
+                el: "#trello",
+                name: "Trello",
+                template: `
+                <div class="drop-area">
+                    <zone-component @addtolist="putNewItem" @createNewCard="toggleInputText" 
+                            v-bind:items="items" 
+                            v-bind:showInputText="showInputText" 
+                                :listId="1" :key="1">
+                        <slot>
+                            <card-component :items="listOne" />
+                        </slot>
+                    </zone-component>
+
+                    <zone-component @addtolist="putNewItem" @createNewCard="toggleInputText" 
+                            v-bind:items="items" 
+                            v-bind:showInputText="showInputText" 
+                                :listId="2" :key="2">
+                        <slot>
+                            <card-component :items="listTwo" />
+                        </slot>
+                    </zone-component>
+                </div>
+                `,
+                data() {
+                    return {
+                        zones: [],
+                        items: [
+                            { id: 0, title: "Item A", list: 1 },
+                            { id: 1, title: "Item B", list: 1 },
+                            { id: 2, title: "Item C", list: 2 },
+                            { id: 3, title: "Item D", list: 1 }
+                        ],
+                        newitemtext: "",
+                        showInputText: false
+                    };
+                },
+                // created() {
+                //     // Create each zones dynamically
+                //     // in order to show each input
+                //     // text individually for example
+                //     var self = this
+                //     var listIds = []
+
+                //     self.$data.items.forEach((item) => {
+                //         listIds.push(item.list)
+                //     })
+                    
+                //     listIds = _.uniq(listIds)
+                //     listIds.forEach(item => {
+                //         self.$data.zones.push(
+                //             { id:  item, showInputText: false}
+                //         )
+                //     })
+                // },
+                computed: {
+                    listOne() {
+                        return this.items.filter((item) => item.list === 1);
+                    },
+                    listTwo() {
+                        return this.items.filter((item) => item.list === 2);
+                    }
+                },
+                methods: {
+                    putNewItem: function (item) {
+                        this.$data.items.push(item)
+                    },
+                    toggleInputText: function () {
+                        this.$data.showInputText = !this.$data.showInputText
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

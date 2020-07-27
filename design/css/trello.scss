@@ -1,0 +1,108 @@
+@import "./variables";
+
+
+$primary_color: #42a5f5;
+$secondary_color: #1976d2;
+$card_color: #fafafa;
+$drop_area_color: #e0e0e0;
+
+%card {
+  transition: all 0.3s ease;
+  background-color: $card_color;
+  padding: 1rem;
+  border-radius: 2px;
+}
+
+html {
+  background-color: $primary_color;
+}
+
+.container {
+  max-width: 1280px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.drop-area {
+  position: relative;
+  transition: all 1s ease;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: $secondary_color;
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  overflow: hidden;
+
+  .zone {
+    position: relative;
+    overflow: hidden;
+    background-color: $drop_area_color;
+    height: auto;
+    width: 50%;
+    padding: 0.5rem;
+
+    &:first-child {
+      margin-right: 0.5rem;
+    }
+
+    .card {
+      @extend %card;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-bottom: 0.4rem;
+      }
+
+      &:hover {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+          0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+.card-enter-active {
+  transition: all 0.4s ease-out;
+}
+
+.card-enter,
+.card-leave-to {
+  opacity: 0;
+}
+
+.card-enter-to,
+.card-leave {
+  opacity: 1;
+}
+
+.card-move {
+  transition: all 0.4s ease;
+}
+
+.zone-enter-active {
+  transition: all 0.3s ease;
+}
+
+.zone-enter {
+  opacity: 0;
+}
+
+.zone-enter-to {
+  opacity: 1;
+}
+
+.drop-area-enter-active {
+  transition: all 1s ease;
+}
+
+.textarea-card {
+  @extend %card;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  resize: none;
+  height: 54px;
+  width: 100%;
+  margin-top: 0.5rem;
+}
