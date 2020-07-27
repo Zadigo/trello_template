@@ -1,0 +1,33 @@
+.card-enter-active {
+    transition: all 0.4s ease-out;
+}
+
+.card-enter,
+.card-leave-to {
+    opacity: 0;
+}
+
+.card-enter-to,
+.card-leave {
+    opacity: 1;
+}
+
+.card-move {
+    transition: all 0.4s ease;
+}
+
+.zone-enter-active {
+    transition: all 0.3s ease;
+}
+
+.zone-enter {
+    opacity: 0;
+}
+
+.zone-enter-to {
+    opacity: 1;
+}
+
+.drop-area-enter-active {
+    transition: all 1s ease;
+}

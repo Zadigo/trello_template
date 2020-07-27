@@ -1,67 +1,4 @@
-.drop-area .zone .card, .textarea-card {
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  background-color: #fafafa;
-  padding: 1rem;
-  border-radius: 2px;
-}
-
-html {
-  background-color: #42a5f5;
-}
-
-.container {
-  max-width: 1280px;
-  width: 80%;
-  margin: 0 auto;
-}
-
-.drop-area {
-  position: relative;
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  background-color: #1976d2;
-  height: auto;
-  width: 100%;
-  padding: 1rem;
-  overflow: hidden;
-}
-
-.drop-area .zone {
-  position: relative;
-  overflow: hidden;
-  background-color: #e0e0e0;
-  height: auto;
-  width: 50%;
-  padding: 0.5rem;
-}
-
-.drop-area .zone:first-child {
-  margin-right: 0.5rem;
-}
-
-.drop-area .zone .card {
-  cursor: pointer;
-}
-
-.drop-area .zone .card:not(:last-child) {
-  margin-bottom: 0.4rem;
-}
-
-.drop-area .zone .card:hover {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-}
-
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700,900");
 .card-enter-active {
   -webkit-transition: all 0.4s ease-out;
   transition: all 0.4s ease-out;
@@ -100,7 +37,112 @@ html {
   transition: all 1s ease;
 }
 
+html {
+  background-color: #42a5f5;
+  font-family: "Roboto";
+}
+
+.container {
+  max-width: 1280px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.drop-area {
+  position: relative;
+  -webkit-transition: all .4s ease-out;
+  transition: all .4s ease-out;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: #1976d2;
+  height: auto;
+  width: 100%;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.drop-area .zone {
+  position: relative;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  height: auto;
+  width: 50%;
+  padding: 0.5rem;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.drop-area .zone:first-child {
+  margin-right: 0.5rem;
+}
+
+.drop-area .zone .card {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+  padding: 1rem;
+  border-radius: 2px;
+  will-change: transform;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.drop-area .zone .card:not(:last-child) {
+  margin-bottom: 0.4rem;
+}
+
+.drop-area .zone .card:hover {
+  background-color: #f0f0f0;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.drop-area .zone .card:hover::after {
+  opacity: 1;
+  -webkit-transform: translate(0);
+          transform: translate(0);
+}
+
+.drop-area .zone .card::after {
+  position: absolute;
+  content: "Modifier";
+  font-weight: 500;
+  right: 15px;
+  font-size: 12x;
+  cursor: pointer;
+  -webkit-transition: all 200ms;
+  transition: all 200ms;
+  -webkit-transition-timing-function: cubic-bezier(0.48, 0.72, 0.62, 1.5);
+          transition-timing-function: cubic-bezier(0.48, 0.72, 0.62, 1.5);
+  -webkit-transform: translateX(120%);
+          transform: translateX(120%);
+  opacity: 0;
+}
+
 .textarea-card {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+  padding: 1rem;
+  border-radius: 2px;
+  will-change: transform;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  overflow: hidden;
   overflow: hidden;
   overflow-wrap: break-word;
   resize: none;
