@@ -118,19 +118,13 @@
                 name: "Trello",
                 template: `
                 <div class="drop-area">
-                    <zone-component @addtolist="putNewItem" @createNewCard="toggleInputText" 
-                            v-bind:items="items" 
-                            v-bind:showInputText="showInputText" 
-                                :listId="1" :key="1">
+                    <zone-component @addtolist="putNewItem" @createNewCard="toggleInputText" v-bind:items="items" v-bind:showInputText="showInputText" :listId="1" :key="1">
                         <slot>
                             <card-component :items="listOne" />
                         </slot>
                     </zone-component>
 
-                    <zone-component @addtolist="putNewItem" @createNewCard="toggleInputText" 
-                            v-bind:items="items" 
-                            v-bind:showInputText="showInputText" 
-                                :listId="2" :key="2">
+                    <zone-component @addtolist="putNewItem" @createNewCard="toggleInputText" v-bind:items="items" v-bind:showInputText="showInputText" :listId="2" :key="2">
                         <slot>
                             <card-component :items="listTwo" />
                         </slot>
